@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register/Sign in</title>
+      <link rel="stylesheet" href="{% static 'login/style.css' %}" />
+      <script src="../custom-scripts.js" defer></script>
+</head>
+<body>
+
+<section class="wrapper">
+      <div class="form signup">
+        <header>Signup</header>
+        <form action="{% url 'Register_save' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+          <input type="text" placeholder="Full name" name="name" required />
+          <input type="email" placeholder="Email address" name="email" required />
+          <input type="text" placeholder="Mobile Number" name="mobile" required />
+          <input type="file" class="mb-3" name="image" required  />
+          <input type="password" placeholder="Password" name="password" required />
+          <div class="checkbox">
+            <input type="checkbox" id="signupCheck" />
+            <label for="signupCheck">I accept all terms & conditions</label>
+          </div>
+          <input type="submit" value="Signup" />
+        </form>
+      </div>
+
+    <form method="post" action="{% url 'Userlogin' %}">
+        {% csrf_token %}
+      <div class="form login">
+        <header>Login</header>
+        <form action="#">
+          <input type="email" placeholder="Email address" name="username" required />
+          <input type="password" placeholder="Password" name="password" required />
+          <a href="#">Forgot password?</a>
+          <input type="submit" value="Login" />
+        </form>
+      </div>
+    </form>
+      <script>
+        const wrapper = document.querySelector(".wrapper"),
+          signupHeader = document.querySelector(".signup header"),
+          loginHeader = document.querySelector(".login header");
+
+        loginHeader.addEventListener("click", () => {
+          wrapper.classList.add("active");
+        });
+        signupHeader.addEventListener("click", () => {
+          wrapper.classList.remove("active");
+        });
+      </script>
+    </section>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}','','warning');
+                </script>
+            {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}','','error');
+                </script>
+            {% else %}
+                <script>
+                    swal('{{i}}','','success');
+                </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+</body>
+</html>

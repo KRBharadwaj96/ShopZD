@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+{% extends 'index.html' %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="card-block table-border-style">
+  <div class="table-responsive">
+      <table class="table table-inverse">
+          <thead>
+          <tr>
+
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Email Address</th>
+              <th>Subject</th>
+              <th>Message</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for i in contact %}
+          <tr>
+              <td>{{i.Fname}}</td>
+              <td>
+                  {{i.Lname}}
+              </td>
+              <td>{{i.Email}}</td>
+              <td>{{i.Subject}}</td>
+              <td>{{i.Message}}</td>
+
+              <td>
+                  <form action="{% url 'Contactdelete' contactid=i.id %}">
+                      <button class="btn btn-info btn-round waves-effect waves-dark">Delete</button>
+                  </form>
+              </td>
+
+          </tr>
+          {% endfor %}
+
+          </tbody>
+      </table>
+  </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

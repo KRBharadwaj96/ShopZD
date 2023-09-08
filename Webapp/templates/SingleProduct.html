@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+{% extends 'Home.html' %}
+{% load static %}
+{% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SingleProduct</title>
+</head>
+<body>
+
+  <div class="site-section">
+    <form method="post" action="{% url 'Cart_Save' %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="container">
+        {% for d in prod_single %}
+        <div class="row">
+          <div class="col-md-6">
+            <img src="{{d.Image.url}}" alt="Image" class="img-fluid" name="pdimage">
+          </div>
+          <div class="col-md-6">
+            <h2 class="text-black">
+              {{d.Product}}
+            </h2>
+            <p>{{d.Description}}</p>
+            <p><strong class="text-primary h4" >Rs. {{d.Price}}</strong></p>
+
+            <p><input type="hidden" id="uname" value="{{request.session.username}}" name="uname"></p>
+
+            <p><input type="hidden" id="price" value="{{d.Price}}" name="price"></p>
+            <p><input type="hidden" id="product" value="{{d.Product}}" name="product"></p>
+            <p><input type="hidden" id="description" value="{{d.Description}}" name="description"></p>
+
+
+            <div class="mb-5">
+              <div class="input-group mb-3" style="max-width: 120px;">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary js-btn-minus" type="button">−</button>
+              </div>
+              <input type="number" class="form-control text-center" id="qty" value="1" min="1" max="10" placeholder="" name="quantity" aria-label="Example text with button addon" aria-describedby="button-addon1">
+              <div class="input-group-append">
+                <button class="btn btn-outline-primary js-btn-plus" type="button">+</button>
+              </div>
+            </div>
+
+              <div class="mb-3 d-flex input-group" >
+<!--              <label for="option-sm" class="d-flex mr-3 mb-3">-->
+<!--                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-sm" name="shop-sizes"></span> <span class="d-inline-block text-black">Small</span>-->
+<!--              </label>-->
+                <label  class="d-flex mr-3 mb-3" >
+                  <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="text"  class="text-primary h4" style="max-width: 120px;" id="tprice" name="tprice" value=""></span>
+<!--                <span class="d-inline-block text-black">No. of Items</span>-->
+                </label>
+<!--              <label for="option-lg" class="d-flex mr-3 mb-3">-->
+<!--                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-lg" name="shop-sizes"></span> <span class="d-inline-block text-black">Large</span>-->
+<!--              </label>-->
+<!--              <label for="option-xl" class="d-flex mr-3 mb-3">-->
+<!--                <span class="d-inline-block mr-2" style="top:-2px; position: relative;"><input type="radio" id="option-xl" name="shop-sizes"></span> <span class="d-inline-block text-black"> Extra Large</span>-->
+<!--              </label>-->
+            </div>
+
+            </div>
+            <button type="submit" class="buy-now btn btn-sm btn-primary">Add To Cart</button>
+
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </form>
+  </div>
+
+<div class="site-section block-3 site-blocks-2 bg-light">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-md-7 site-section-heading text-center pt-4">
+            <h2>Featured Products</h2>
+          </div>
+        </div>
+        {% for j in prod %}
+        <div class="row">
+          <div class="col-md-12">
+            <div class="nonloop-block-3 owl-carousel owl-loaded owl-drag">
+
+            <div class="owl-stage-outer">
+              <div class="owl-stage" style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1730px; padding-left: 15px; padding-right: 15px;">
+                <div class="owl-item active" style="width: 320px; margin-right: 20px;">
+                  <div class="item">
+                    <div class="block-4 text-center">
+                      <figure class="block-4-image">
+                        <img src="{{j.Image.url}}" alt="Image placeholder" class="img-fluid">
+                      </figure>
+                    <div class="block-4-text p-4">
+                      <h3><a href="{% url 'Singleproduct' dataid=j.id %}">{{j.Product}}</a></h3>
+                      <p class="mb-0">{{j.Description}}</p>
+                      <p class="text-primary font-weight-bold">Rs. {{j.Price}}</p>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+<!--                <div class="owl-item active" style="width: 320px; margin-right: 20px;">-->
+<!--                  <div class="item">-->
+<!--                    <div class="block-4 text-center">-->
+<!--                      <figure class="block-4-image">-->
+<!--                        <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">-->
+<!--                      </figure>-->
+<!--                    <div class="block-4-text p-4">-->
+<!--                      <h3><a href="#">Corater</a></h3>-->
+<!--                      <p class="mb-0">Finding perfect products</p>-->
+<!--                      <p class="text-primary font-weight-bold">$50</p>-->
+<!--                    </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="owl-item" style="width: 320px; margin-right: 20px;"><div class="item">-->
+<!--                <div class="block-4 text-center">-->
+<!--                  <figure class="block-4-image">-->
+<!--                    <img src="images/cloth_2.jpg" alt="Image placeholder" class="img-fluid">-->
+<!--                  </figure>-->
+<!--                  <div class="block-4-text p-4">-->
+<!--                    <h3><a href="#">Polo Shirt</a></h3>-->
+<!--                    <p class="mb-0">Finding perfect products</p>-->
+<!--                    <p class="text-primary font-weight-bold">$50</p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div></div>-->
+<!--                <div class="owl-item" style="width: 320px; margin-right: 20px;"><div class="item">-->
+<!--                <div class="block-4 text-center">-->
+<!--                  <figure class="block-4-image">-->
+<!--                    <img src="images/cloth_3.jpg" alt="Image placeholder" class="img-fluid">-->
+<!--                  </figure>-->
+<!--                  <div class="block-4-text p-4">-->
+<!--                    <h3><a href="#">T-Shirt Mockup</a></h3>-->
+<!--                    <p class="mb-0">Finding perfect products</p>-->
+<!--                    <p class="text-primary font-weight-bold">$50</p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div></div>-->
+<!--                <div class="owl-item" style="width: 320px; margin-right: 20px;"><div class="item">-->
+<!--                <div class="block-4 text-center">-->
+<!--                  <figure class="block-4-image">-->
+<!--                    <img src="images/shoe_1.jpg" alt="Image placeholder" class="img-fluid">-->
+<!--                  </figure>-->
+<!--                  <div class="block-4-text p-4">-->
+<!--                    <h3><a href="#">Corater</a></h3>-->
+<!--                    <p class="mb-0">Finding perfect products</p>-->
+<!--                    <p class="text-primary font-weight-bold">$50</p>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--              </div></div>-->
+              </div>
+            </div>
+<!--          <div class="owl-nav">-->
+<!--            <div class="owl-prev disabled"><span class="icon-arrow_back"></span></div>-->
+<!--            <div class="owl-next"><span class="icon-arrow_forward"></span></div>-->
+<!--          </div>-->
+<!--          <div class="owl-dots">-->
+<!--            <div class="owl-dot active"><span></span></div>-->
+<!--            <div class="owl-dot"><span></span></div>-->
+<!--            <div class="owl-dot"><span></span></div>-->
+<!--          </div>-->
+          </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $("#qty").change(function(){
+                q= document.getElementById("qty").value
+                p= document.getElementById("price").value
+                tot =p*q
+                document.getElementById("tprice").value=tot
+            })
+        })
+    </script>
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    {% if messages %}
+        {% for i in messages %}
+            {% if i.tags == 'warning' %}
+                <script>
+                    swal('{{i}}','','warning');
+                </script>
+            {% elif i.tags == 'error' %}
+                <script>
+                    swal('{{i}}','','error');
+                </script>
+            {% else %}
+                <script>
+                    swal('{{i}}','','success');
+                </script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+</body>
+</html>
+{% endblock %}
